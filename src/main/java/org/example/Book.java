@@ -7,6 +7,8 @@ public class Book {
     private String Genre;
     private String SubGenre;
     private String Publisher;
+    private boolean isLoaned;
+    private String loanedTo;
 
     @Override
     public String toString() {
@@ -21,12 +23,14 @@ public class Book {
     }
 
     public Book(int number, String title, String author, String genre, String subGenre, String publisher) {
-        Number = number;
+        this.Number = number;
         this.title = title;
-        Author = author;
-        Genre = genre;
-        SubGenre = subGenre;
-        Publisher = publisher;
+        this.Author = author;
+        this.Genre = genre;
+        this.SubGenre = subGenre;
+        this.Publisher = publisher;
+        this.isLoaned = false;
+        this.loanedTo = "";
     }
 
     public int getNumber() {
@@ -75,5 +79,21 @@ public class Book {
 
     public void setPublisher(String publisher) {
         Publisher = publisher;
+    }
+
+    public boolean isLoaned() {
+        return isLoaned;
+    }
+
+    public void setLoaned(boolean loaned) {
+        isLoaned = loaned;
+    }
+
+    public String getLoanedTo() {
+        return loanedTo;
+    }
+
+    public void setLoanedTo(String loanedTo) {
+        this.loanedTo = loanedTo;
     }
 }

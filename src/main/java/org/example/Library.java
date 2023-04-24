@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.FileWriter;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,6 +8,10 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.FileWriter;
+import java.io.IOException;
+import com.opencsv.CSVWriter;
+import java.util.List;
 public class Library {
 
     private List<Book> books;
@@ -14,7 +19,7 @@ public class Library {
 
     public Library(){
         books = new ArrayList<>();
-        loanedBooks = new ArrayList<>()
+        loanedBooks = new ArrayList<>();
 
     }
 
@@ -33,18 +38,36 @@ public class Library {
     }
 
 
-    public boolean loanBook(int bookNumber){
-        Iterator<Book> iter = books.iterator();
-        while (iter.hasNext()){
-            Book book = iter.next();
-            if (book.getNumber() == (bookNumber)){
-                iter.remove();
-                loanedBooks.add(book);
-                System.out.println("Book " + bookNumber + " has been loaned.");
+    public boolean loanBook(int bookNumber, String borrowerName) {
+        for (Book book : books) {
+            if (book.getNumber() == bookNumber) {
+                if (!book.isLoaned()) {
+                    book.setLoaned(true);
+                    book.setLoanedTo(borrowerName);
+                    loanedBooks.add(book);
+                    books.remove(book);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean returnBook(int bookNumber) {
+        // Search the loanedBooks list for the book with the specified number
+        for (Book book : loanedBooks) {
+            if (book.getNumber() == bookNumber) {
+                // Set the book's isLoaned attribute to false and loanedTo attribute to null
+                book.setLoaned(false);
+                book.setLoanedTo(null);
+                // Move the book back to the books list
+                books.add(book);
+                loanedBooks.remove(book);
                 return true;
             }
         }
-        System.out.println("Book " + bookNumber + " not found.");
+        // If the book wasn't found in the loanedBooks list, it hasn't been loaned out
         return false;
     }
 
@@ -68,5 +91,26 @@ public class Library {
 
         }
 
+    }
+
+    public void saveLibrary() {
+        try (CSVWriter writer = new CSVWriter(new FileWriter("books_data.csv"))) {
+            // Write header row
+            writer.writeNext(new String[] { "Book Number", "Title", "Author", "Is Loaned", "Loaned To" });
+
+            // Write each book from both lists to the file
+            for (Book book : books) {
+                writer.writeNext(new String[] { String.valueOf(book.getNumber()) , book.getTitle(), book.getAuthor()
+                        , Boolean.toString(book.isLoaned()), book.getLoanedTo() });
+            }
+            for (Book book : loanedBooks) {
+                writer.writeNext(new String[] { String.valueOf(book.getNumber()), book.getTitle(), book.getAuthor()
+                        , Boolean.toString(book.isLoaned()), book.getLoanedTo() });
+            }
+
+            System.out.println("Library saved to books_data.csv.");
+        } catch (IOException e) {
+            System.err.println("Error saving library: " + e.getMessage());
+        }
     }
 }
