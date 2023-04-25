@@ -8,14 +8,10 @@ import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
-import java.util.List;
 public class Library {
 
     private List<Book> books;
@@ -138,7 +134,6 @@ public class Library {
         try {
             CSVReader reader = new CSVReader(new FileReader("books_data.csv"));
             String[] header = reader.readNext(); // skip header row
-
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 int bookNumber = Integer.parseInt(nextLine[0]);
@@ -148,7 +143,6 @@ public class Library {
                 boolean isLoaned = Boolean.parseBoolean(nextLine[4]);
                 String loanedTo = nextLine[5];
                 int loanCount = Integer.parseInt(nextLine[6]);
-
                 Book book = new Book(bookNumber, title, author, genre);
                 book.setLoaned(isLoaned);
                 book.setLoanedTo(loanedTo);
