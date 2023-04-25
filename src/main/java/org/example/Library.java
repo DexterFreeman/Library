@@ -10,7 +10,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+
 import java.util.List;
 public class Library {
 
@@ -30,47 +34,83 @@ public class Library {
         }
     }
 
+    public void displayBookInformation(int bookNumber){
+        Book book = findBook(bookNumber);
+        System.out.println(book.toString());
+    }
+
     public void displayLoanedBooks() {
         System.out.println("Loaned books:");
         for (Book book : loanedBooks) {
             System.out.println(book);
         }
     }
+    public Book findBook(int bookNumber) {
+        for (Book book : books) {
+            if (book.getNumber() == bookNumber) {
+                return book;
+            }
+        }
+        for (Book book : loanedBooks) {
+            if (book.getNumber() == bookNumber) {
+                return book;
+            }
+        }
+        return null;
+    }
 
 
     public boolean loanBook(int bookNumber, String borrowerName) {
-        for (Book book : books) {
-            if (book.getNumber() == bookNumber) {
-                if (!book.isLoaned()) {
-                    book.setLoaned(true);
-                    book.setLoanedTo(borrowerName);
-                    loanedBooks.add(book);
-                    books.remove(book);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+        Book book = findBook(bookNumber);
+        book.toString();
+        if (book != null && book.isLoaned() == false){
+            book.setLoaned(true);
+            book.setLoanedTo(borrowerName);
+            loanedBooks.add(book);
+            books.remove(book);
+            return true;
         }
         return false;
     }
     public boolean returnBook(int bookNumber) {
-        // Search the loanedBooks list for the book with the specified number
         for (Book book : loanedBooks) {
             if (book.getNumber() == bookNumber) {
-                // Set the book's isLoaned attribute to false and loanedTo attribute to null
                 book.setLoaned(false);
                 book.setLoanedTo(null);
-                // Move the book back to the books list
                 books.add(book);
                 loanedBooks.remove(book);
                 return true;
             }
         }
-        // If the book wasn't found in the loanedBooks list, it hasn't been loaned out
         return false;
     }
 
+    public void saveLibrary() {
+        try {
+            CSVWriter writer = new CSVWriter(new FileWriter("books_data.csv"));
+
+            String[] header = {"Book Number", "Title", "Author", "Genre", "Is Loaned", "Loaned To", "Loan Count"};
+            writer.writeNext(header);
+
+            for (Book book : books) {
+                String[] bookData = {String.valueOf(book.getNumber()), book.getTitle(), book.getAuthor(), book.getGenre(),
+                        String.valueOf(book.isLoaned()), book.getLoanedTo(), String.valueOf(book.getLoanCount())};
+                writer.writeNext(bookData);
+
+            }
+
+            for (Book book : loanedBooks) {
+                String[] bookData = {String.valueOf(book.getNumber()), book.getTitle(), book.getAuthor(), book.getGenre(),
+                        String.valueOf(book.isLoaned()), book.getLoanedTo(), String.valueOf(book.getLoanCount())};
+                writer.writeNext(bookData);
+                System.out.println(bookData);
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving library to file: " + e.getMessage());
+        }
+    }
     public void loadBooksFromCSV(){
         String line = "";
         String delimiter = ",";
@@ -93,24 +133,39 @@ public class Library {
 
     }
 
-    public void saveLibrary() {
-        try (CSVWriter writer = new CSVWriter(new FileWriter("books_data.csv"))) {
-            // Write header row
-            writer.writeNext(new String[] { "Book Number", "Title", "Author", "Is Loaned", "Loaned To" });
 
-            // Write each book from both lists to the file
-            for (Book book : books) {
-                writer.writeNext(new String[] { String.valueOf(book.getNumber()) , book.getTitle(), book.getAuthor()
-                        , Boolean.toString(book.isLoaned()), book.getLoanedTo() });
-            }
-            for (Book book : loanedBooks) {
-                writer.writeNext(new String[] { String.valueOf(book.getNumber()), book.getTitle(), book.getAuthor()
-                        , Boolean.toString(book.isLoaned()), book.getLoanedTo() });
+    public void loadLibrary() {
+        try {
+            CSVReader reader = new CSVReader(new FileReader("books_data.csv"));
+            String[] header = reader.readNext(); // skip header row
+
+            String[] nextLine;
+            while ((nextLine = reader.readNext()) != null) {
+                int bookNumber = Integer.parseInt(nextLine[0]);
+                String title = nextLine[1];
+                String author = nextLine[2];
+                String genre = nextLine[3];
+                boolean isLoaned = Boolean.parseBoolean(nextLine[4]);
+                String loanedTo = nextLine[5];
+                int loanCount = Integer.parseInt(nextLine[6]);
+
+                Book book = new Book(bookNumber, title, author, genre);
+                book.setLoaned(isLoaned);
+                book.setLoanedTo(loanedTo);
+                book.setLoanCount(loanCount);
+
+                if (isLoaned) {
+                    loanedBooks.add(book);
+                } else {
+                    books.add(book);
+                }
             }
 
-            System.out.println("Library saved to books_data.csv.");
+            reader.close();
         } catch (IOException e) {
-            System.err.println("Error saving library: " + e.getMessage());
+            System.out.println("Error loading library from file: " + e.getMessage());
+        } catch (CsvValidationException e) {
+            throw new RuntimeException(e);
         }
     }
 }

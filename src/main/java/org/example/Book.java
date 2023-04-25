@@ -2,35 +2,71 @@ package org.example;
 
 public class Book {
     private int Number;
-    private String title;
+    private String Title;
     private String Author;
     private String Genre;
     private String SubGenre;
     private String Publisher;
     private boolean isLoaned;
     private String loanedTo;
+    private int loanCount;
+
+    public Book(int bookNumber, String title, String author, String genre) {
+        this.Number = bookNumber;
+        this.Title = title;
+        this.Author = author;
+        this.Genre = genre;
+    }
 
     @Override
     public String toString() {
         return "Book{" +
                 "Number=" + Number +
-                ", title='" + title + '\'' +
+                ", Title='" + Title + '\'' +
                 ", Author='" + Author + '\'' +
                 ", Genre='" + Genre + '\'' +
                 ", SubGenre='" + SubGenre + '\'' +
                 ", Publisher='" + Publisher + '\'' +
+                ", isLoaned=" + isLoaned +
+                ", loanedTo='" + loanedTo + '\'' +
+                ", loanCount=" + loanCount +
                 '}';
     }
 
     public Book(int number, String title, String author, String genre, String subGenre, String publisher) {
         this.Number = number;
-        this.title = title;
+        this.Title = title;
         this.Author = author;
         this.Genre = genre;
         this.SubGenre = subGenre;
         this.Publisher = publisher;
         this.isLoaned = false;
         this.loanedTo = "";
+        this.loanCount = 0;
+    }
+
+    public Book(int number, String title, String author, String genre, String subGenre, String publisher, boolean isLoaned, String loanedTo, int loanCount) {
+        Number = number;
+        this.Title = title;
+        Author = author;
+        Genre = genre;
+        SubGenre = subGenre;
+        Publisher = publisher;
+        this.isLoaned = isLoaned;
+        this.loanedTo = loanedTo;
+        this.loanCount = loanCount;
+    }
+
+    public int getLoanCount() {
+        return loanCount;
+    }
+
+    public void setLoanCount(int loanCount) {
+        this.loanCount = loanCount;
+    }
+
+    public void incrementLoanCount(){
+        this.loanCount++;
     }
 
     public int getNumber() {
@@ -42,11 +78,11 @@ public class Book {
     }
 
     public String getTitle() {
-        return title;
+        return Title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.Title = title;
     }
 
     public String getAuthor() {

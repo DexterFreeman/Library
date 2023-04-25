@@ -5,7 +5,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello world!");
         Library library = new Library();
-        library.loadBooksFromCSV();
+        library.loadLibrary();
         System.out.println(library.toString());
         boolean exit = false;
         System.out.println("Welcome to the library system!");
@@ -18,8 +18,9 @@ public class Main {
             System.out.println("4 - Loan a book");
             System.out.println("5 - Return a book");
             System.out.println("6 - Save & Exit");
+            System.out.println("7 - Get book information");
             userChoice = scanner.nextInt();
-            if (userChoice < 6 || userChoice > 1){
+            if (userChoice < 7 || userChoice > 1){
                 switch (userChoice){
                     case 1:
                         library.displayBooks();
@@ -51,6 +52,12 @@ public class Main {
                     case 6:
                         library.saveLibrary();
                         exit = true;
+                        break;
+
+                    case 7:
+                        System.out.println("Input book number");
+                        booknumber = scanner.nextInt();
+                        library.displayBookInformation(booknumber);
                         break;
                 }
             }
