@@ -18,9 +18,10 @@ public class Main {
             System.out.println("4 - Loan a book");
             System.out.println("5 - Return a book");
             System.out.println("6 - Save & Exit");
-            System.out.println("7 - Get book information");
+            System.out.println("7 - Get book information by number");
+            System.out.println("8 - View books by genre");
             userChoice = scanner.nextInt();
-            if (userChoice < 7 || userChoice > 1){
+            if (userChoice < 8 || userChoice > 1){
                 switch (userChoice){
                     case 1:
                         library.displayBooks();
@@ -59,6 +60,10 @@ public class Main {
                         booknumber = scanner.nextInt();
                         library.displayBookInformation(booknumber);
                         break;
+                    case 8:
+                        System.out.println("Input genre to search by:");
+                        String genre = scanner.nextLine();
+                        library.displayBooksByGenre(genre);
                 }
             }
             else {

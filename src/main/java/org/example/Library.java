@@ -23,6 +23,20 @@ public class Library {
 
     }
 
+    public void displayBooksByGenre(String genre){
+        boolean bookfound = false;
+        for (Book book: books) {
+            if (book.getGenre() == genre){
+                bookfound = true;
+                System.out.println(book.toString());
+
+            }
+        }
+        if(!bookfound){
+            System.out.println("No book were found for genre: " + genre);
+        }
+    }
+
     public void displayBooks() {
         System.out.println("Library books:");
         for (Book book : books) {

@@ -57,6 +57,20 @@ public class Book {
         this.loanCount = loanCount;
     }
 
+    public int getPopularity(){
+        switch (this.loanCount / 5) {
+            case 0:
+                return 1;
+            case 1:
+                return 2;
+            case 2:
+                return 3;
+            case 3:
+                return 4;
+            default:
+                return 5;
+        }
+    }
     public int getLoanCount() {
         return loanCount;
     }
