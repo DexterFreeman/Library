@@ -23,6 +23,29 @@ public class Library {
 
     }
 
+    public int getPopularity(int loanCount){
+        switch (loanCount / 5) {
+            case 0:
+                return 1;
+            case 1:
+                return 2;
+            case 2:
+                return 3;
+            case 3:
+                return 4;
+            default:
+                return 5;
+        }
+    }
+    public Book getBookByNumber(int number){
+        for (Book book: books
+             ) {
+            if(book.getNumber() == number){ return book;}
+        }
+        System.out.println("No book found.");
+        return null;
+    }
+
     public void displayBooksByGenre(String genre){
         boolean bookfound = false;
         for (Book book: books) {

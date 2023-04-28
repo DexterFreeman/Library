@@ -58,7 +58,9 @@ public class Main {
                     case 7:
                         System.out.println("Input book number");
                         booknumber = scanner.nextInt();
-                        library.displayBookInformation(booknumber);
+                        Book book = library.getBookByNumber(booknumber);
+                        System.out.println(book.toString());
+                        System.out.println("The books popularity is: " + library.getPopularity(booknumber));
                         break;
                     case 8:
                         System.out.println("Input genre to search by:");
