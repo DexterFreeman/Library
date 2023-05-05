@@ -2,10 +2,11 @@ package org.example;
 
 import java.util.List;
 
-public class Customer extends User {
-
+public class Guest extends User{
     private List<Book> loanedBooks;
-    public Customer(String name, String password){
+
+
+    public Guest(String name, String password) {
         super(name, password);
         this.loanedBooks = null;
     }

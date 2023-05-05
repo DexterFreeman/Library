@@ -1,78 +1,44 @@
 package org.example;
 import java.util.Scanner;
 public class Main {
-    public static void main(String[] args) {
+
+    public static User login(){
+        UserSystem userSystem = new UserSystem();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello world!");
-        Library library = new Library();
-        library.loadLibrary();
-        System.out.println(library.toString());
-        boolean exit = false;
         System.out.println("Welcome to the library system!");
-        while (exit == false){
-            int userChoice = 0;
-            System.out.println("===================");
-            System.out.println("1 - View all books");
-            System.out.println("2 - View unloaned books");
-            System.out.println("3 - View loaned books");
-            System.out.println("4 - Loan a book");
-            System.out.println("5 - Return a book");
-            System.out.println("6 - Save & Exit");
-            System.out.println("7 - Get book information by number");
-            System.out.println("8 - View books by genre");
-            userChoice = scanner.nextInt();
-            if (userChoice < 8 || userChoice > 1){
-                switch (userChoice){
-                    case 1:
-                        library.displayBooks();
-                        library.displayLoanedBooks();
-                        break;
-
-                    case 2:
-                        library.displayBooks();
-                        break;
-
-                    case 3:
-                        library.displayLoanedBooks();
-                        break;
-
-                    case 4:
-                        System.out.println("Input name of person loaning book to:");
-                        String name = scanner.next();
-                        System.out.println("Input book number");
-                        int bookNumber = scanner.nextInt();
-                        library.loanBook(bookNumber, name);
-                        break;
-
-                    case 5:
-                        System.out.println("Input book number");
-                        int booknumber = scanner.nextInt();
-                        library.returnBook(booknumber);
-                        break;
-
-                    case 6:
-                        library.saveLibrary();
-                        exit = true;
-                        break;
-
-                    case 7:
-                        System.out.println("Input book number");
-                        booknumber = scanner.nextInt();
-                        Book book = library.getBookByNumber(booknumber);
-                        System.out.println(book.toString());
-                        System.out.println("The books popularity is: " + library.getPopularity(booknumber));
-                        break;
-                    case 8:
-                        System.out.println("Input genre to search by:");
-                        String genre = scanner.nextLine();
-                        library.displayBooksByGenre(genre);
-                }
-            }
-            else {
-                System.out.println("Error, input was not a valid option. Try again.");
+        System.out.println("Are you a guest or a customer?");
+        System.out.println("1 - Customer");
+        System.out.println("2 - Guest");
+        int userInput = scanner.nextInt();
+        if (userInput == 1){
+            System.out.println("Username:");
+            String username = scanner.nextLine();
+            System.out.println("Password:");
+            String password = scanner.nextLine();
+            Guest temp = (Guest) userSystem.getGuests().stream().filter(guest -> guest.getName() == username && guest.getPassword() == password );
+            if (temp != null){
+                return temp;
             }
 
         }
+        else if (userInput == 2){
+            System.out.println("Username:");
+            String username = scanner.nextLine();
+            System.out.println("Password:");
+            String password = scanner.nextLine();
+        }
+        else {
+            System.out.println("Error, invalid input");
+            login();
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        User user = login();
+        Library library = new Library();
+        LibraryUtils.loadLibrary(library);
+        Guest tempGuest = new Guest("Dexter", "test");
+        LibraryUtils.startLibrary(tempGuest, library);
 
     }
 }
