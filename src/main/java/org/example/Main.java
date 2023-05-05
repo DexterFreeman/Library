@@ -19,6 +19,10 @@ public class Main {
             if (temp != null){
                 return temp;
             }
+            else{
+                login();
+            }
+
 
         }
         else if (userInput == 2){
@@ -26,6 +30,11 @@ public class Main {
             String username = scanner.nextLine();
             System.out.println("Password:");
             String password = scanner.nextLine();
+            Customer temp = (Customer) userSystem.getCustomers().stream().filter(customer -> customer.getName() == username && customer.getPassword() == password);
+            if (temp != null){return temp;}
+            else{
+                login();
+            }
         }
         else {
             System.out.println("Error, invalid input");

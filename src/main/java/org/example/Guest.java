@@ -15,6 +15,15 @@ public class Guest extends User{
         return loanedBooks;
     }
 
+    public void loanBook(Book book){
+        if(loanedBooks.size() >= 3){
+            System.out.println("You cannot loan more than 3 books.");
+        }
+        else{
+            loanedBooks.add(book);
+        }
+
+    }
     public void setLoanedBooks(List<Book> loanedBooks) {
         this.loanedBooks = loanedBooks;
     }
