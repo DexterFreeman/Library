@@ -1,8 +1,11 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserSystem {
+
+    private static UserSystem userSystem = null;
     private List<User> allUsers;
     private List<Customer> customers;
     private List<Guest> guests;
@@ -14,9 +17,25 @@ public class UserSystem {
     public void setAllUsers(List<User> allUsers) {
         this.allUsers = allUsers;
     }
+    public void addGuest(Guest guest){
+        this.guests.add(guest);
+    }
+    public void printNames(){
+        for (Guest guest: guests
+             ) {
+            System.out.println(guest.getName());
+        }
+    }
+    public void printPasswords(){
+        for (Guest guest: guests
+        ) {
+            System.out.println(guest.getPassword());
+        }
+    }
+
 
     public List<Customer> getCustomers() {
-        return customers;
+        return this.customers;
     }
 
     public void setCustomers(List<Customer> customers) {
@@ -24,22 +43,22 @@ public class UserSystem {
     }
 
     public List<Guest> getGuests() {
-        return guests;
+        return this.guests;
     }
 
     public void setGuests(List<Guest> guests) {
         this.guests = guests;
     }
 
-    public UserSystem(List<User> allUsers, List<Customer> customers, List<Guest> guests) {
-        this.allUsers = allUsers;
-        this.customers = customers;
-        this.guests = guests;
+    private UserSystem() {
+        allUsers = new ArrayList<User>();
+        customers = new ArrayList<Customer>();
+        guests = new ArrayList<Guest>();
     }
-
-    public UserSystem() {
-        this.allUsers = null;
-        this.customers = null;
-        this.guests = null;
+    public static synchronized UserSystem getInstance(){
+        if (userSystem == null){
+            userSystem = new UserSystem();
+        }
+        return userSystem;
     }
 }
