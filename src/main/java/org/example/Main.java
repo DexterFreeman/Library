@@ -17,30 +17,28 @@ public class Main {
             String username = scanner.nextLine();
             System.out.println("Password:");
             String password = scanner.nextLine();
-
-            Customer temp = (Customer) userSystem.getCustomers().stream().filter(guest -> guest.getName() == username && guest.getPassword() == password );
-            if (temp != null){
-                return temp;
+            for (Customer customer: userSystem.getCustomers()
+            ) {
+                if (customer.getName().equals(username) && customer.getPassword().equals(password)){
+                    return customer;
+                }
             }
-            else{
-                login();
-            }
-
-
+            System.out.println("Username or password incorrect.");
+            login();
         }
         else if (userInput == 2){
             System.out.println("Username:");
             String username = scanner.next();
             System.out.println("Password:");
             String password = scanner.next();
-            userSystem.printNames();
-            userSystem.printPasswords();
             for (Guest guest: userSystem.getGuests()
                  ) {
                 if (guest.getName().equals(username) && guest.getPassword().equals(password)){
                     return guest;
                 }
             }
+            System.out.println("Username or password incorrect.");
+            login();
         }
         else {
             System.out.println("Error, invalid input");

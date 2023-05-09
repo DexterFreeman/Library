@@ -20,18 +20,23 @@ public class UserSystem {
     public void addGuest(Guest guest){
         this.guests.add(guest);
     }
-    public void printNames(){
-        for (Guest guest: guests
-             ) {
-            System.out.println(guest.getName());
-        }
-    }
-    public void printPasswords(){
-        for (Guest guest: guests
-        ) {
-            System.out.println(guest.getPassword());
-        }
-    }
+
+
+
+
+    //For debugging
+//    public void printNames(){
+//        for (Guest guest: guests
+//             ) {
+//            System.out.println(guest.getName());
+//        }
+//    }
+//    public void printPasswords(){
+//        for (Guest guest: guests
+//        ) {
+//            System.out.println(guest.getPassword());
+//        }
+//    }
 
 
     public List<Customer> getCustomers() {
