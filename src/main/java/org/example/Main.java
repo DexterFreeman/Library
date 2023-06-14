@@ -11,6 +11,7 @@ public class Main {
         System.out.println("Are you a guest or a customer?");
         System.out.println("1 - Customer");
         System.out.println("2 - Guest");
+        System.out.println("3 - Admin");
         int userInput = scanner.nextInt();
         if (userInput == 1){
             System.out.println("Username:");
@@ -40,6 +41,20 @@ public class Main {
             System.out.println("Username or password incorrect.");
             login();
         }
+        else if (userInput == 3){
+            System.out.println("Username:");
+            String username = scanner.next();
+            System.out.println("Password:");
+            String password = scanner.next();
+            for (Admin admin: userSystem.getAdmins()
+            ) {
+                if (admin.getName().equals(username) && admin.getPassword().equals(password)){
+                    return admin;
+                }
+            }
+            System.out.println("Username or password incorrect.");
+            login();
+        }
         else {
             System.out.println("Error, invalid input");
             login();
@@ -51,14 +66,20 @@ public class Main {
         Guest tempGuest = new Guest("Dexter", "test");
         UserSystem userSystem = UserSystem.getInstance();
         System.out.println(userSystem.getAllUsers());
-
+        Admin admin = new Admin("admin", "test");
         userSystem.addGuest(tempGuest);
+        userSystem.addAdmin(admin);
         User user = login();
-        System.out.println(user.toString());
+
         Library library = new Library();
         LibraryUtils.loadLibrary(library);
+        if (user instanceof Admin){
+            LibraryUtils.startAdmin((Admin) user, library);
+        }
+        else{
+            LibraryUtils.startLibrary(user, library);
+        }
 
-        LibraryUtils.startLibrary(tempGuest, library);
 
     }
 }

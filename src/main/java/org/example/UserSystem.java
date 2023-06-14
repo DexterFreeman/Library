@@ -9,6 +9,7 @@ public class UserSystem {
     private List<User> allUsers;
     private List<Customer> customers;
     private List<Guest> guests;
+    private List<Admin> admins;
 
     public List<User> getAllUsers() {
         return allUsers;
@@ -21,10 +22,18 @@ public class UserSystem {
         this.guests.add(guest);
     }
 
+    public void addAdmin(Admin admin) {
+        this.admins.add(admin);
+    }
+    public List<Admin> getAdmins() {
+        return admins;
+    }
 
+    public void setAdmins(List<Admin> admins) {
+        this.admins = admins;
+    }
 
-
-    //For debugging
+//For debugging
 //    public void printNames(){
 //        for (Guest guest: guests
 //             ) {
@@ -59,6 +68,7 @@ public class UserSystem {
         allUsers = new ArrayList<User>();
         customers = new ArrayList<Customer>();
         guests = new ArrayList<Guest>();
+        admins = new ArrayList<Admin>();
     }
     public static synchronized UserSystem getInstance(){
         if (userSystem == null){
