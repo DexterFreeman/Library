@@ -27,6 +27,17 @@ public class Library {
         return books;
     }
 
+    public boolean deleteBook(int bookNumber){
+        Book book = findBook(bookNumber);
+        if (book == null){
+            return false;
+        }
+        books.remove(book);
+        loanedBooks.remove(book);
+        return true;
+
+    }
+
     public void setBooks(List<Book> books) {
         this.books = books;
     }

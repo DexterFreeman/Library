@@ -18,6 +18,15 @@ public class Book {
         this.Genre = genre;
     }
 
+    public int getUniqueId(){
+        Library library = Library.getInstance();
+        int randomInt = (int) (Math.random() * 9999);
+        if (library.getBookByNumber(randomInt) != null){
+            getUniqueId();
+        }
+        return randomInt;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -55,6 +64,17 @@ public class Book {
         this.isLoaned = isLoaned;
         this.loanedTo = loanedTo;
         this.loanCount = loanCount;
+    }
+
+    public Book() {
+        this.Number = getUniqueId();
+        this.Author = null;
+        this.Genre = null;
+        this.SubGenre = null;
+        this.Publisher = null;
+        this.isLoaned = false;
+        this.loanedTo = null;
+        this.loanCount = 0;
     }
 
 

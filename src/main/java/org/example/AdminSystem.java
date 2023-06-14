@@ -20,12 +20,21 @@ public class AdminSystem {
             System.out.println("6 - Delete a user/guest");
             System.out.println("7 - Quit");
             int userInput = scanner.nextInt();
+            String userInputStr = scanner.next();
             switch (userInput){
                 case 1:
                     System.out.println("Input book number of the book you wish to edit.");
                     userInput = scanner.nextInt();
                     editBook(library.findBook(userInput));
-
+                    break;
+                case 2:
+                    System.out.println("Input the number of the book you wish to delete.");
+                    userInput = scanner.nextInt();
+                    library.deleteBook(userInput);
+                    break;
+                case 3:
+                    library.addBookToBooks(createBook());
+                    break;
 
                 case 7:
                     exit = true;
@@ -36,6 +45,27 @@ public class AdminSystem {
 
             }
         }
+    }
+
+    public Book createBook(){
+        String userInputStr;
+        Book newBook = new Book();
+        System.out.println("What is the books name?");
+        userInputStr = scanner.next();
+        newBook.setTitle(userInputStr);
+        System.out.println("Who is the author?");
+        userInputStr = scanner.next();
+        newBook.setAuthor(userInputStr);
+        System.out.println("What is its genre?");
+        userInputStr = scanner.next();
+        newBook.setGenre(userInputStr);
+        System.out.println("What are its subgenre(s)");
+        userInputStr = scanner.next();
+        newBook.setSubGenre(userInputStr);
+        System.out.println("Who is the publisher?");
+        userInputStr = scanner.next();
+        newBook.setPublisher(userInputStr);
+        return newBook;
     }
 
     public Book editBook(Book bookToEdit){
