@@ -71,7 +71,7 @@ public class Main {
         userSystem.addAdmin(admin);
         User user = login();
 
-        Library library = new Library();
+        Library library = Library.getInstance();
         LibraryUtils.loadLibrary(library);
         if (user instanceof Admin){
             AdminSystem adminSystem = new AdminSystem((Admin) user);

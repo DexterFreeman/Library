@@ -13,7 +13,7 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class Library {
-
+    private static Library library = null;
     private List<Book> books;
     private List<Book> loanedBooks;
 
@@ -138,6 +138,13 @@ public class Library {
             }
         }
         return false;
+    }
+
+    public static synchronized Library getInstance(){
+        if (library == null){
+            library = new Library();
+        }
+        return library;
     }
 
 
