@@ -15,32 +15,6 @@ public class LibraryUtils {
 
     public static Scanner scanner = new Scanner(System.in);
 
-    public static void startAdmin(Admin admin, Library library){
-        boolean exit = false;
-        while (!exit){
-            System.out.println("1 - Edit a book");
-            System.out.println("2 - Delete a book");
-            System.out.println("3 - Add a book");
-            System.out.println("4 - Register a new user/guest");
-            System.out.println("5 - Edit a user/guest");
-            System.out.println("6 - Delete a user/guest");
-            System.out.println("7 - Quit");
-            int userInput = scanner.nextInt();
-            switch (userInput){
-                case 1:
-                    System.out.println(1);
-
-                case 2:
-                    exit = true;
-                    break;
-
-                default:
-                    System.out.println("Error, not a valid option. please try again");
-
-            }
-        }
-
-    }
 
     public static void startLibrary(User loggedInUser, Library library){
         boolean exit = false;

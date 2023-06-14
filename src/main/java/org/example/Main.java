@@ -74,7 +74,8 @@ public class Main {
         Library library = new Library();
         LibraryUtils.loadLibrary(library);
         if (user instanceof Admin){
-            LibraryUtils.startAdmin((Admin) user, library);
+            AdminSystem adminSystem = new AdminSystem((Admin) user);
+            adminSystem.startAdminSystem(library);
         }
         else{
             LibraryUtils.startLibrary(user, library);
