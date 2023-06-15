@@ -106,10 +106,10 @@ public class UserSystem {
     }
 
     private UserSystem() {
-        allUsers = new ArrayList<User>();
-        customers = new ArrayList<Customer>();
-        guests = new ArrayList<Guest>();
-        admins = new ArrayList<Admin>();
+        allUsers = new ArrayList<>();
+        customers = new ArrayList<>();
+        guests = new ArrayList<>();
+        admins = new ArrayList<>();
     }
 
     public static synchronized UserSystem getInstance() {

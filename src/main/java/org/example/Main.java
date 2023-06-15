@@ -15,51 +15,67 @@ public class Main {
         System.out.println("1 - Customer");
         System.out.println("2 - Guest");
         System.out.println("3 - Admin");
-        int userInput = scanner.nextInt();
-        if (userInput == 1) {
-            System.out.println("Username:");
-            String username = scanner.next();
-            System.out.println("Password:");
-            String password = scanner.next();
-            for (Customer customer : userSystem.getCustomers()
-            ) {
-                if (customer.getName().equals(username) && customer.getPassword().equals(password)) {
-                    return customer;
-                }
+        String username;
+        String password;
+        String userchoice = InputValidation.menuValidation(scanner.next(), 1);
+        if (userchoice != "") {
+            switch (Integer.parseInt(userchoice)){
+                case 1:
+                    System.out.println("Username:");
+                    username = scanner.next();
+                    System.out.println("Password:");
+                    password = scanner.next();
+                    for (Customer customer : userSystem.getCustomers()
+                    ) {
+                        if (customer.getName().equals(username) && customer.getPassword().equals(password)) {
+                            return customer;
+                        }
+                    }
+                    System.out.println("Username or password incorrect.");
+                    login();
+                    break;
+
+                case 2:
+                    System.out.println("Username:");
+                    username = scanner.next();
+                    System.out.println("Password:");
+                    password = scanner.next();
+                    for (Guest guest : userSystem.getGuests()
+                    ) {
+                        if (guest.getName().equals(username) && guest.getPassword().equals(password)) {
+                            return guest;
+                        }
+                    }
+                    System.out.println("Username or password incorrect.");
+                    login();
+                    break;
+
+                case 3:
+                    System.out.println("Username:");
+                    username = scanner.next();
+                    System.out.println("Password:");
+                    password = scanner.next();
+                    for (Admin admin : userSystem.getAdmins()
+                    ) {
+                        if (admin.getName().equals(username) && admin.getPassword().equals(password)) {
+                            return admin;
+                        }
+                    }
+                    System.out.println("Username or password incorrect.");
+                    login();
+                    break;
+
+                default:
+                    System.out.println("Error, invalid input please input a valid choice");
+                    login();
+                    break;
             }
-            System.out.println("Username or password incorrect.");
-            login();
-        } else if (userInput == 2) {
-            System.out.println("Username:");
-            String username = scanner.next();
-            System.out.println("Password:");
-            String password = scanner.next();
-            for (Guest guest : userSystem.getGuests()
-            ) {
-                if (guest.getName().equals(username) && guest.getPassword().equals(password)) {
-                    return guest;
-                }
-            }
-            System.out.println("Username or password incorrect.");
-            login();
-        } else if (userInput == 3) {
-            System.out.println("Username:");
-            String username = scanner.next();
-            System.out.println("Password:");
-            String password = scanner.next();
-            for (Admin admin : userSystem.getAdmins()
-            ) {
-                if (admin.getName().equals(username) && admin.getPassword().equals(password)) {
-                    return admin;
-                }
-            }
-            System.out.println("Username or password incorrect.");
-            login();
-        } else {
-            System.out.println("Error, invalid input");
+        }
+        else {
+            System.out.println("Error, invalid input please type in a number.");
             login();
         }
-        login();
+        //never reaches here this is dead code, just putting it here so the compiler doesn't cry.
         return null;
     }
 
