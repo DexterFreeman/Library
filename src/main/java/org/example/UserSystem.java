@@ -15,50 +15,57 @@ public class UserSystem {
         return allUsers;
     }
 
-    public User getUserByID(int ID){
-        for (User user: allUsers
-             ) {
-            if (user.getUserID() == ID){
+    public User getUserByID(int ID) {
+        for (User user : allUsers
+        ) {
+            if (user.getUserID() == ID) {
                 return user;
             }
         }
         return null;
     }
 
-    public int getUniqueID(){
+    public int getUniqueID() {
         int randomID = (int) (Math.random() * 9999);
-        for (User user: allUsers
-             ) {
-            if (user.getUserID() == randomID){
+        for (User user : allUsers
+        ) {
+            if (user.getUserID() == randomID) {
                 getUniqueID();
             }
         }
         return randomID;
     }
-    public void addCustomer(Customer customer){
+
+    public void addCustomer(Customer customer) {
         this.customers.add(customer);
+        this.allUsers.add(customer);
     }
 
     public void setAllUsers(List<User> allUsers) {
         this.allUsers = allUsers;
     }
-    public void addGuest(Guest guest){
+
+    public void addGuest(Guest guest) {
         this.guests.add(guest);
+        this.allUsers.add(guest);
     }
 
-    public boolean deleteUser(int id){
-        for (User user:
-             allUsers ) {
-            if (user.getUserID() == id){
+    public boolean deleteUser(int id) {
+        for (User user :
+                allUsers) {
+            if (user.getUserID() == id) {
                 allUsers.remove(user);
                 return true;
             }
         }
         return false;
     }
+
     public void addAdmin(Admin admin) {
         this.admins.add(admin);
+        this.allUsers.add(admin);
     }
+
     public List<Admin> getAdmins() {
         return admins;
     }
@@ -104,8 +111,9 @@ public class UserSystem {
         guests = new ArrayList<Guest>();
         admins = new ArrayList<Admin>();
     }
-    public static synchronized UserSystem getInstance(){
-        if (userSystem == null){
+
+    public static synchronized UserSystem getInstance() {
+        if (userSystem == null) {
             userSystem = new UserSystem();
         }
         return userSystem;

@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.List;
 
-public class Guest extends User{
+public class Guest extends User {
     private List<Book> loanedBooks;
 
 
@@ -15,15 +15,15 @@ public class Guest extends User{
         return loanedBooks;
     }
 
-    public void loanBook(Book book){
-        if(loanedBooks.size() >= 3){
+    public void loanBook(Book book) {
+        if (loanedBooks.size() >= 3) {
             System.out.println("You cannot loan more than 3 books.");
-        }
-        else{
+        } else {
             loanedBooks.add(book);
         }
 
     }
+
     public void setLoanedBooks(List<Book> loanedBooks) {
         this.loanedBooks = loanedBooks;
     }

@@ -1,23 +1,13 @@
 package org.example;
-
-import java.io.FileWriter;
-import java.nio.Buffer;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvValidationException;
 
 public class Library {
     private static Library library = null;
     private List<Book> books;
     private List<Book> loanedBooks;
 
-    public Library(){
+    public Library() {
         books = new ArrayList<>();
         loanedBooks = new ArrayList<>();
 
@@ -27,9 +17,9 @@ public class Library {
         return books;
     }
 
-    public boolean deleteBook(int bookNumber){
+    public boolean deleteBook(int bookNumber) {
         Book book = findBook(bookNumber);
-        if (book == null){
+        if (book == null) {
             return false;
         }
         books.remove(book);
@@ -46,17 +36,19 @@ public class Library {
         return loanedBooks;
     }
 
-    public void addBookToBooks(Book book){
+    public void addBookToBooks(Book book) {
         this.books.add(book);
     }
-    public void addBookToLoanedBooks(Book book){
+
+    public void addBookToLoanedBooks(Book book) {
         this.loanedBooks.add(book);
     }
+
     public void setLoanedBooks(List<Book> loanedBooks) {
         this.loanedBooks = loanedBooks;
     }
 
-    public int getPopularity(int loanCount){
+    public int getPopularity(int loanCount) {
         switch (loanCount / 5) {
             case 0:
                 return 1;
@@ -70,25 +62,28 @@ public class Library {
                 return 5;
         }
     }
-    public Book getBookByNumber(int number){
-        for (Book book: books
-             ) {
-            if(book.getNumber() == number){ return book;}
+
+    public Book getBookByNumber(int number) {
+        for (Book book : books
+        ) {
+            if (book.getNumber() == number) {
+                return book;
+            }
         }
         System.out.println("No book found.");
         return null;
     }
 
-    public void displayBooksByGenre(String genre){
+    public void displayBooksByGenre(String genre) {
         boolean bookfound = false;
-        for (Book book: books) {
-            if (book.getGenre() == genre){
+        for (Book book : books) {
+            if (book.getGenre() == genre) {
                 bookfound = true;
                 System.out.println(book.toString());
 
             }
         }
-        if(!bookfound){
+        if (!bookfound) {
             System.out.println("No book were found for genre: " + genre);
         }
     }
@@ -100,7 +95,7 @@ public class Library {
         }
     }
 
-    public void displayBookInformation(int bookNumber){
+    public void displayBookInformation(int bookNumber) {
         Book book = findBook(bookNumber);
         System.out.println(book.toString());
     }
@@ -111,6 +106,7 @@ public class Library {
             System.out.println(book);
         }
     }
+
     public Book findBook(int bookNumber) {
         for (Book book : books) {
             if (book.getNumber() == bookNumber) {
@@ -129,7 +125,7 @@ public class Library {
     public boolean loanBook(int bookNumber, String borrowerName) {
         Book book = findBook(bookNumber);
         book.toString();
-        if (book != null && book.isLoaned() == false){
+        if (book != null && book.isLoaned() == false) {
             book.setLoaned(true);
             book.setLoanedTo(borrowerName);
             loanedBooks.add(book);
@@ -138,6 +134,7 @@ public class Library {
         }
         return false;
     }
+
     public boolean returnBook(int bookNumber) {
         for (Book book : loanedBooks) {
             if (book.getNumber() == bookNumber) {
@@ -151,8 +148,8 @@ public class Library {
         return false;
     }
 
-    public static synchronized Library getInstance(){
-        if (library == null){
+    public static synchronized Library getInstance() {
+        if (library == null) {
             library = new Library();
         }
         return library;

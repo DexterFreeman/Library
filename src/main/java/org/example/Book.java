@@ -18,10 +18,10 @@ public class Book {
         this.Genre = genre;
     }
 
-    public int getUniqueId(){
+    public int getUniqueId() {
         Library library = Library.getInstance();
         int randomInt = (int) (Math.random() * 9999);
-        if (library.getBookByNumber(randomInt) != null){
+        if (library.getBookByNumber(randomInt) != null) {
             getUniqueId();
         }
         return randomInt;
@@ -86,7 +86,7 @@ public class Book {
         this.loanCount = loanCount;
     }
 
-    public void incrementLoanCount(){
+    public void incrementLoanCount() {
         this.loanCount++;
     }
 

@@ -10,9 +10,9 @@ public class AdminSystem {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Library library = Library.getInstance();
 
-    public void startAdminSystem(){
+    public void startAdminSystem() {
         boolean exit = false;
-        while (!exit){
+        while (!exit) {
             System.out.println("1 - Edit a book");
             System.out.println("2 - Delete a book");
             System.out.println("3 - Add a book");
@@ -21,7 +21,7 @@ public class AdminSystem {
             System.out.println("6 - Delete a user/guest");
             System.out.println("7 - Quit");
             int userInput = scanner.nextInt();
-            switch (userInput){
+            switch (userInput) {
                 case 1:
                     System.out.println("Input book number of the book you wish to edit.");
                     userInput = scanner.nextInt();
@@ -37,8 +37,8 @@ public class AdminSystem {
                     break;
 
                 case 4:
-                   createUser();
-                   break;
+                    createUser();
+                    break;
 
                 case 5:
                     System.out.println("Input ID of the user you wish to edit");
@@ -49,7 +49,7 @@ public class AdminSystem {
                 case 6:
                     System.out.println("Input ID of the user you wish to delete");
                     UserSystem userSystem = UserSystem.getInstance();
-                    if (!userSystem.deleteUser(scanner.nextInt())){
+                    if (!userSystem.deleteUser(scanner.nextInt())) {
                         System.out.println("Error: incorrect id. ");
                     }
                     break;
@@ -63,14 +63,14 @@ public class AdminSystem {
                     break;
 
             }
-            System.out.println("End of switch");
+            Main.mainMenu();
         }
     }
 
-    public User editUser(int id){
+    public User editUser(int id) {
         UserSystem userSystem = UserSystem.getInstance();
         User user = userSystem.getUserByID(id);
-        if (user == null){
+        if (user == null) {
             return null;
         }
         System.out.println("Input new username:");
@@ -81,12 +81,12 @@ public class AdminSystem {
 
     }
 
-    public User createUser(){
+    public User createUser() {
         System.out.println("Will this user be a customer or guest?");
         System.out.println("Alternatively, input 'back' to go back");
         UserSystem userSystem = UserSystem.getInstance();
         String username;
-        switch (scanner.next().toLowerCase(Locale.ROOT)){
+        switch (scanner.next().toLowerCase(Locale.ROOT)) {
             case "customer":
                 System.out.println("Username:");
                 username = scanner.next();
@@ -111,7 +111,7 @@ public class AdminSystem {
         return null;
     }
 
-    public Book createBook(){
+    public Book createBook() {
         Book newBook = new Book();
         System.out.println("What is the books name?");
         newBook.setTitle(scanner.next());
@@ -126,7 +126,7 @@ public class AdminSystem {
         return newBook;
     }
 
-    public Book editBook(Book bookToEdit){
+    public Book editBook(Book bookToEdit) {
         System.out.println("What would you like to edit?");
         System.out.println("1 - Title");
         System.out.println("2 - Author");
@@ -136,7 +136,7 @@ public class AdminSystem {
         System.out.println("6 - Quit");
         int userInput = scanner.nextInt();
         String userInputStr;
-        switch (userInput){
+        switch (userInput) {
             //Will eventually add user input validation, just getting it to work
             case 1:
                 System.out.println("Input new title:");

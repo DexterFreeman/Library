@@ -16,10 +16,10 @@ public class LibraryUtils {
     private static Scanner scanner = new Scanner(System.in);
     private static final Library library = Library.getInstance();
 
-    public static void startLibrary(User loggedInUser){
+    public static void startLibrary(User loggedInUser) {
         boolean exit = false;
 
-        while (exit == false){
+        while (exit == false) {
             int userChoice = 0;
             System.out.println("===================");
             System.out.println("1 - View all books");
@@ -31,8 +31,8 @@ public class LibraryUtils {
             System.out.println("7 - Get book information by number");
             System.out.println("8 - View books by genre");
             userChoice = scanner.nextInt();
-            if (userChoice < 8 || userChoice > 1){
-                switch (userChoice){
+            if (userChoice < 8 || userChoice > 1) {
+                switch (userChoice) {
                     case 1:
                         library.displayBooks();
                         library.displayLoanedBooks();
@@ -74,16 +74,15 @@ public class LibraryUtils {
                         break;
                     case 8:
                         System.out.println("Input genre to search by:");
-                        String genre = scanner.nextLine();
-                        library.displayBooksByGenre(genre);
+                        library.displayBooksByGenre(scanner.next());
                 }
-            }
-            else {
+            } else {
                 System.out.println("Error, input was not a valid option. Try again.");
             }
 
         }
     }
+
     public static void saveLibrary(Library library) {
 
         try {

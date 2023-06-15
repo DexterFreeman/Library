@@ -5,7 +5,8 @@ import java.util.List;
 public class Customer extends User {
 
     private List<Book> loanedBooks;
-    public Customer(String name, String password){
+
+    public Customer(String name, String password) {
         super(name, password);
         this.loanedBooks = null;
     }
@@ -14,11 +15,10 @@ public class Customer extends User {
         return loanedBooks;
     }
 
-    public void loanBook(Book book){
-        if(loanedBooks.size() >= 5){
+    public void loanBook(Book book) {
+        if (loanedBooks.size() >= 5) {
             System.out.println("You cannot loan more than 5 books.");
-        }
-        else{
+        } else {
             loanedBooks.add(book);
         }
 
