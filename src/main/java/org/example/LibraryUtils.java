@@ -13,10 +13,10 @@ import java.util.Scanner;
 
 public class LibraryUtils {
 
-    public static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
+    private static final Library library = Library.getInstance();
 
-
-    public static void startLibrary(User loggedInUser, Library library){
+    public static void startLibrary(User loggedInUser){
         boolean exit = false;
 
         while (exit == false){

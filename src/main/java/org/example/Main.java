@@ -62,6 +62,19 @@ public class Main {
         login();
         return null;
     }
+
+    public static void mainMenu(){
+        User user = login();
+        if (user instanceof Admin){
+            AdminSystem adminSystem = new AdminSystem((Admin) user);
+            adminSystem.startAdminSystem();
+        }
+        else{
+            LibraryUtils.startLibrary(user);
+        }
+
+
+    }
     public static void main(String[] args) {
         Guest tempGuest = new Guest("Dexter", "test");
         UserSystem userSystem = UserSystem.getInstance();
@@ -75,10 +88,10 @@ public class Main {
         LibraryUtils.loadLibrary(library);
         if (user instanceof Admin){
             AdminSystem adminSystem = new AdminSystem((Admin) user);
-            adminSystem.startAdminSystem(library);
+            adminSystem.startAdminSystem();
         }
         else{
-            LibraryUtils.startLibrary(user, library);
+            LibraryUtils.startLibrary(user);
         }
 
 

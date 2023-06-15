@@ -9,7 +9,7 @@ public class AdminSystem {
     private static final Scanner scanner = new Scanner(System.in);
     private static final Library library = Library.getInstance();
 
-    public void startAdminSystem(Library library){
+    public void startAdminSystem(){
         boolean exit = false;
         while (!exit){
             System.out.println("1 - Edit a book");
@@ -20,7 +20,6 @@ public class AdminSystem {
             System.out.println("6 - Delete a user/guest");
             System.out.println("7 - Quit");
             int userInput = scanner.nextInt();
-            String userInputStr = scanner.next();
             switch (userInput){
                 case 1:
                     System.out.println("Input book number of the book you wish to edit.");
@@ -28,7 +27,7 @@ public class AdminSystem {
                     editBook(library.findBook(userInput));
                     break;
                 case 2:
-                    System.out.println("Input the number of the book you wish to delete.");
+                    System.out.println("Input book number of the book you wish to delete.");
                     userInput = scanner.nextInt();
                     library.deleteBook(userInput);
                     break;
@@ -42,8 +41,10 @@ public class AdminSystem {
 
                 default:
                     System.out.println("Error, not a valid option. please try again");
+                    break;
 
             }
+            System.out.println("End of switch");
         }
     }
 
