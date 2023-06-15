@@ -15,6 +15,26 @@ public class UserSystem {
         return allUsers;
     }
 
+    public User getUserByID(int ID){
+        for (User user: allUsers
+             ) {
+            if (user.getUserID() == ID){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public int getUniqueID(){
+        int randomID = (int) (Math.random() * 9999);
+        for (User user: allUsers
+             ) {
+            if (user.getUserID() == randomID){
+                getUniqueID();
+            }
+        }
+        return randomID;
+    }
     public void addCustomer(Customer customer){
         this.customers.add(customer);
     }

@@ -38,6 +38,12 @@ public class AdminSystem {
 
                 case 4:
                    createUser();
+                   break;
+
+                case 5:
+                    System.out.println("Input ID of the user you wish to edit");
+                    userInput = scanner.nextInt();
+                    editUser(userInput);
 
 
                 case 7:
@@ -51,6 +57,20 @@ public class AdminSystem {
             }
             System.out.println("End of switch");
         }
+    }
+
+    public User editUser(int id){
+        UserSystem userSystem = UserSystem.getInstance();
+        User user = userSystem.getUserByID(id);
+        if (user == null){
+            return null;
+        }
+        System.out.println("Input new username:");
+        user.setName(scanner.next());
+        System.out.println("Input new password:");
+        user.setPassword(scanner.next());
+        return user;
+
     }
 
     public User createUser(){
