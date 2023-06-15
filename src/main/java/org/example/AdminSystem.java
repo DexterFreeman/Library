@@ -44,7 +44,15 @@ public class AdminSystem {
                     System.out.println("Input ID of the user you wish to edit");
                     userInput = scanner.nextInt();
                     editUser(userInput);
+                    break;
 
+                case 6:
+                    System.out.println("Input ID of the user you wish to delete");
+                    UserSystem userSystem = UserSystem.getInstance();
+                    if (!userSystem.deleteUser(scanner.nextInt())){
+                        System.out.println("Error: incorrect id. ");
+                    }
+                    break;
 
                 case 7:
                     exit = true;
@@ -104,23 +112,17 @@ public class AdminSystem {
     }
 
     public Book createBook(){
-        String userInputStr;
         Book newBook = new Book();
         System.out.println("What is the books name?");
-        userInputStr = scanner.next();
-        newBook.setTitle(userInputStr);
+        newBook.setTitle(scanner.next());
         System.out.println("Who is the author?");
-        userInputStr = scanner.next();
-        newBook.setAuthor(userInputStr);
+        newBook.setAuthor(scanner.next());
         System.out.println("What is its genre?");
-        userInputStr = scanner.next();
-        newBook.setGenre(userInputStr);
+        newBook.setGenre(scanner.next());
         System.out.println("What are its subgenre(s)");
-        userInputStr = scanner.next();
-        newBook.setSubGenre(userInputStr);
+        newBook.setSubGenre(scanner.next());
         System.out.println("Who is the publisher?");
-        userInputStr = scanner.next();
-        newBook.setPublisher(userInputStr);
+        newBook.setPublisher(scanner.next());
         return newBook;
     }
 

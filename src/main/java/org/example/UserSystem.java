@@ -46,6 +46,16 @@ public class UserSystem {
         this.guests.add(guest);
     }
 
+    public boolean deleteUser(int id){
+        for (User user:
+             allUsers ) {
+            if (user.getUserID() == id){
+                allUsers.remove(user);
+                return true;
+            }
+        }
+        return false;
+    }
     public void addAdmin(Admin admin) {
         this.admins.add(admin);
     }
