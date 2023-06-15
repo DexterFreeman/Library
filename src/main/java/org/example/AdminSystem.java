@@ -1,6 +1,7 @@
 package org.example;
 
 import java.sql.SQLOutput;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class AdminSystem {
@@ -15,8 +16,8 @@ public class AdminSystem {
             System.out.println("1 - Edit a book");
             System.out.println("2 - Delete a book");
             System.out.println("3 - Add a book");
-            System.out.println("4 - Register a new user/guest");
-            System.out.println("5 - Edit a user/guest");
+            System.out.println("4 - Register a new customer/guest");
+            System.out.println("5 - Edit a customer/guest");
             System.out.println("6 - Delete a user/guest");
             System.out.println("7 - Quit");
             int userInput = scanner.nextInt();
@@ -35,6 +36,10 @@ public class AdminSystem {
                     library.addBookToBooks(createBook());
                     break;
 
+                case 4:
+                   createUser();
+
+
                 case 7:
                     exit = true;
                     break;
@@ -46,6 +51,36 @@ public class AdminSystem {
             }
             System.out.println("End of switch");
         }
+    }
+
+    public User createUser(){
+        System.out.println("Will this user be a customer or guest?");
+        System.out.println("Alternatively, input 'back' to go back");
+        UserSystem userSystem = UserSystem.getInstance();
+        String username;
+        switch (scanner.next().toLowerCase(Locale.ROOT)){
+            case "customer":
+                System.out.println("Username:");
+                username = scanner.next();
+                System.out.println("Password:");
+                Customer customer = new Customer(username, scanner.next());
+                userSystem.addCustomer(customer);
+                return customer;
+
+            case "guest":
+                System.out.println("Username:");
+                username = scanner.next();
+                System.out.println("Password:");
+                Guest guest = new Guest(username, scanner.next());
+                userSystem.addGuest(guest);
+                return guest;
+            case "back":
+                break;
+            default:
+                System.out.println("Error, invalid input please try again");
+                break;
+        }
+        return null;
     }
 
     public Book createBook(){

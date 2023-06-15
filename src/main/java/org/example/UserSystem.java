@@ -15,6 +15,10 @@ public class UserSystem {
         return allUsers;
     }
 
+    public void addCustomer(Customer customer){
+        this.customers.add(customer);
+    }
+
     public void setAllUsers(List<User> allUsers) {
         this.allUsers = allUsers;
     }
