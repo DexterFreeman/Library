@@ -9,7 +9,7 @@ public class AdminSystem {
     private Admin loggedInAdmin;
     private static final Scanner scanner = new Scanner(System.in);
     private static final Library library = Library.getInstance();
-
+    private static UserSystem userSystem = UserSystem.getInstance();
     public void startAdminSystem() {
         boolean exit = false;
         while (!exit) {
@@ -19,7 +19,8 @@ public class AdminSystem {
             System.out.println("4 - Register a new customer/guest");
             System.out.println("5 - Edit a customer/guest");
             System.out.println("6 - Delete a user/guest");
-            System.out.println("7 - Quit");
+            System.out.println("7 - View all users");
+            System.out.println("8 - Quit");
             int userInput = scanner.nextInt();
             switch (userInput) {
                 case 1:
@@ -48,13 +49,18 @@ public class AdminSystem {
 
                 case 6:
                     System.out.println("Input ID of the user you wish to delete");
-                    UserSystem userSystem = UserSystem.getInstance();
+
                     if (!userSystem.deleteUser(scanner.nextInt())) {
                         System.out.println("Error: incorrect id. ");
                     }
                     break;
 
+
                 case 7:
+                    userSystem.printAllUsers();
+                    break;
+
+                case 8:
                     exit = true;
                     break;
 

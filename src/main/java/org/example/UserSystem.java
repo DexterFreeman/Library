@@ -15,6 +15,16 @@ public class UserSystem {
         return allUsers;
     }
 
+    public void printAllUsers(){
+        for (User user: getAllUsers()
+             ) {
+            System.out.println(user.getUserID());
+            System.out.println(user.getName());
+            System.out.println(user.getPassword());
+            System.out.println("================================================");
+        }
+    }
+
     public User getUserByID(int ID) {
         for (User user : allUsers
         ) {

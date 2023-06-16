@@ -66,6 +66,7 @@ public class Main {
                     break;
 
                 default:
+                    //Just it case it somehow gets past the Input validation set in other class.
                     System.out.println("Error, invalid input please input a valid choice");
                     login();
                     break;

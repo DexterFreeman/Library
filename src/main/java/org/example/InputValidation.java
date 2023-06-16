@@ -3,7 +3,9 @@ package org.example;
 public  class InputValidation {
 
     public static String menuValidation(String input, int menuCode){
-
+        if (input == "back"){
+            return input;
+        }
         switch (menuCode){
             case 1:
                 try{
@@ -13,8 +15,8 @@ public  class InputValidation {
                     }
                     return input;
                 }
-                catch (Exception e){
-                    return "";
+                catch (Exception ignored){
+
                 }
 
         }

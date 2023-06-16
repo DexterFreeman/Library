@@ -30,7 +30,9 @@ public class LibraryUtils {
             System.out.println("6 - Save & Exit");
             System.out.println("7 - Get book information by number");
             System.out.println("8 - View books by genre");
-            userChoice = scanner.nextInt();
+            System.out.println("Back - To go back");
+            String userInput = scanner.next();
+
             if (userChoice < 8 || userChoice > 1) {
                 switch (userChoice) {
                     case 1:
